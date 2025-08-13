@@ -40,13 +40,13 @@ steps:
 
 ## Inputs
 
-| Name | Description | Required | Default |
-|------|-------------|----------|---------|
-| `text` | The text or URL to encode into the QR code | Yes | - |
-| `output-path` | File path where the generated QR code image will be saved | Yes | - |
-| `width` | Width of the QR code image in pixels | No | `256` |
-| `margin` | Quiet zone size around the QR code | No | `1` |
-| `type` | Output format type (`png` or `svg`) | No | `png` |
+| Name          | Description                                               | Required | Default |
+| ------------- | --------------------------------------------------------- | -------- | ------- |
+| `text`        | The text or URL to encode into the QR code                | Yes      | -       |
+| `output-path` | File path where the generated QR code image will be saved | Yes      | -       |
+| `width`       | Width of the QR code image in pixels                      | No       | `256`   |
+| `margin`      | Quiet zone size around the QR code                        | No       | `1`     |
+| `type`        | Output format type (`png` or `svg`)                       | No       | `png`   |
 
 ## Examples
 
