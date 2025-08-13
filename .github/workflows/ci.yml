@@ -53,14 +53,51 @@ jobs:
         id: checkout
         uses: actions/checkout@v5
 
-      - name: Test Local Action
-        id: test-action
+      - name: Generate PNG QR Code
+        id: test-action-png
         uses: ./
         with:
-          milliseconds: 2000
+          text: https://github.com/VeyronSakai/qr-code-generator
+          output-path: test-qrcode.png
+          type: png
 
-      - name: Print Output
-        id: output
-        env:
-          ACTION_TIME: ${{ steps.test-action.outputs.time }}
-        run: echo "$ACTION_TIME"
+      - name: Generate SVG QR Code
+        id: test-action-svg
+        uses: ./
+        with:
+          text: https://github.com/VeyronSakai/qr-code-generator
+          output-path: test-qrcode.svg
+          type: svg
+          width: '512'
+          margin: '2'
+
+      - name: Verify QR Code Files
+        id: verify
+        shell: pwsh
+        run: |
+          # Check PNG file
+          if (Test-Path "test-qrcode.png") {
+            Write-Host "✅ PNG QR code file generated successfully"
+            Get-Item "test-qrcode.png" | Format-List Name, Length, LastWriteTime
+          } else {
+            Write-Host "❌ PNG QR code file not found"
+            exit 1
+          }
+
+          # Check SVG file
+          if (Test-Path "test-qrcode.svg") {
+            Write-Host "✅ SVG QR code file generated successfully"
+            Get-Item "test-qrcode.svg" | Format-List Name, Length, LastWriteTime
+          } else {
+            Write-Host "❌ SVG QR code file not found"
+            exit 1
+          }
+
+      - name: Upload QR Code Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: qr-codes-${{ github.run_number }}
+          path: |
+            test-qrcode.png
+            test-qrcode.svg
+          retention-days: 7
