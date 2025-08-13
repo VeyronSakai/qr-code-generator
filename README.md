@@ -14,35 +14,18 @@ A GitHub Action to generate QR code images from text or URLs.
 
 ```yaml
 steps:
-  - name: Checkout
-    uses: actions/checkout@v4
-
   - name: Generate QR Code
-    uses: VeyronSakai/qr-code-generator@v1
+    uses: VeyronSakai/qr-code-generator@v0.1
     with:
       text: 'https://github.com/VeyronSakai/qr-code-generator'
       output-path: 'qrcode.png'
-```
-
-### Advanced Example
-
-```yaml
-steps:
-  - name: Generate Custom QR Code
-    uses: VeyronSakai/qr-code-generator@v1
-    with:
-      text: 'https://example.com'
-      output-path: 'custom-qr.svg'
-      width: '512'
-      margin: '2'
-      type: 'svg'
 ```
 
 ## Inputs
 
 | Name          | Description                                               | Required | Default |
 | ------------- | --------------------------------------------------------- | -------- | ------- |
-| `text`        | The text or URL to encode into the QR code                | Yes      | -       |
+| `text`        | The text to encode into the QR code                       | Yes      | -       |
 | `output-path` | File path where the generated QR code image will be saved | Yes      | -       |
 | `width`       | Width of the QR code image in pixels                      | No       | `256`   |
 | `margin`      | Quiet zone size around the QR code                        | No       | `1`     |
@@ -60,11 +43,8 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Generate QR Code
-        uses: VeyronSakai/qr-code-generator@v1
+        uses: VeyronSakai/qr-code-generator@v0.1
         with:
           text: ${{ github.server_url }}/${{ github.repository }}
           output-path: repo-qr.png
@@ -74,25 +54,6 @@ jobs:
         with:
           name: qr-code
           path: repo-qr.png
-```
-
-### Generate Multiple QR Codes
-
-```yaml
-steps:
-  - name: Generate PNG QR Code
-    uses: VeyronSakai/qr-code-generator@v1
-    with:
-      text: 'https://example.com'
-      output-path: 'qr-png.png'
-      type: 'png'
-
-  - name: Generate SVG QR Code
-    uses: VeyronSakai/qr-code-generator@v1
-    with:
-      text: 'https://example.com'
-      output-path: 'qr-svg.svg'
-      type: 'svg'
 ```
 
 ## Development
