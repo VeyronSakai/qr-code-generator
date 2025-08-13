@@ -1,6 +1,6 @@
 {
-  "name": "typescript-action",
-  "description": "GitHub Actions TypeScript template",
+  "name": "qr-code-generator",
+  "description": "GitHub Action to generate QR codes",
   "version": "0.1.0",
   "author": "",
   "type": "module",
