@@ -57,10 +57,16 @@ jobs:
         id: test-action
         uses: ./
         with:
-          milliseconds: 2000
+          text: https://github.com/VeyronSakai/qr-code-generator
+          output-path: test-qrcode.png
 
-      - name: Print Output
-        id: output
-        env:
-          ACTION_TIME: ${{ steps.test-action.outputs.time }}
-        run: echo "$ACTION_TIME"
+      - name: Verify QR Code File
+        id: verify
+        run: |
+          if [ -f "test-qrcode.png" ]; then
+            echo "✅ QR code file generated successfully"
+            ls -la test-qrcode.png
+          else
+            echo "❌ QR code file not found"
+            exit 1
+          fi
