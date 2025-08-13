@@ -6,7 +6,6 @@ A GitHub Action to generate QR code images from text or URLs.
 
 - Generate QR codes as PNG or SVG images
 - Customizable width and margin
-- Simple and easy to use in your workflows
 
 ## Usage
 
