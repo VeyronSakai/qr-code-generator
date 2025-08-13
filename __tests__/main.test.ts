@@ -111,4 +111,96 @@ describe('main.ts', () => {
       'Failed to generate QR code: Generation failed'
     )
   })
+
+  it('Sets a failed status for invalid width', async () => {
+    // Clear the getInput mock and return an invalid width value.
+    core.getInput.mockClear().mockImplementation((name: string) => {
+      switch (name) {
+        case 'text':
+          return 'https://example.com'
+        case 'output-path':
+          return 'qrcode.png'
+        case 'width':
+          return 'not-a-number'
+        default:
+          return ''
+      }
+    })
+
+    await run()
+
+    // Verify that the action was marked as failed.
+    expect(core.setFailed).toHaveBeenCalledWith(
+      'Failed to generate QR code: Invalid width: not-a-number. Must be a positive integer.'
+    )
+  })
+
+  it('Sets a failed status for negative width', async () => {
+    // Clear the getInput mock and return a negative width value.
+    core.getInput.mockClear().mockImplementation((name: string) => {
+      switch (name) {
+        case 'text':
+          return 'https://example.com'
+        case 'output-path':
+          return 'qrcode.png'
+        case 'width':
+          return '-100'
+        default:
+          return ''
+      }
+    })
+
+    await run()
+
+    // Verify that the action was marked as failed.
+    expect(core.setFailed).toHaveBeenCalledWith(
+      'Failed to generate QR code: Invalid width: -100. Must be a positive integer.'
+    )
+  })
+
+  it('Sets a failed status for invalid margin', async () => {
+    // Clear the getInput mock and return an invalid margin value.
+    core.getInput.mockClear().mockImplementation((name: string) => {
+      switch (name) {
+        case 'text':
+          return 'https://example.com'
+        case 'output-path':
+          return 'qrcode.png'
+        case 'margin':
+          return 'invalid'
+        default:
+          return ''
+      }
+    })
+
+    await run()
+
+    // Verify that the action was marked as failed.
+    expect(core.setFailed).toHaveBeenCalledWith(
+      'Failed to generate QR code: Invalid margin: invalid. Must be a non-negative integer.'
+    )
+  })
+
+  it('Sets a failed status for negative margin', async () => {
+    // Clear the getInput mock and return a negative margin value.
+    core.getInput.mockClear().mockImplementation((name: string) => {
+      switch (name) {
+        case 'text':
+          return 'https://example.com'
+        case 'output-path':
+          return 'qrcode.png'
+        case 'margin':
+          return '-5'
+        default:
+          return ''
+      }
+    })
+
+    await run()
+
+    // Verify that the action was marked as failed.
+    expect(core.setFailed).toHaveBeenCalledWith(
+      'Failed to generate QR code: Invalid margin: -5. Must be a non-negative integer.'
+    )
+  })
 })

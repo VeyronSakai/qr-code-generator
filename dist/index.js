@@ -33570,9 +33570,23 @@ async function run() {
         // Get inputs
         const text = coreExports.getInput('text', { required: true });
         const outputPath = coreExports.getInput('output-path', { required: true });
-        const width = parseInt(coreExports.getInput('width') || '256', 10);
-        const margin = parseInt(coreExports.getInput('margin') || '1', 10);
+        // Parse and validate width
+        const widthInput = coreExports.getInput('width') || '256';
+        const width = parseInt(widthInput, 10);
+        if (Number.isNaN(width) || width <= 0) {
+            throw new Error(`Invalid width: ${widthInput}. Must be a positive integer.`);
+        }
+        // Parse and validate margin
+        const marginInput = coreExports.getInput('margin') || '1';
+        const margin = parseInt(marginInput, 10);
+        if (Number.isNaN(margin) || margin < 0) {
+            throw new Error(`Invalid margin: ${marginInput}. Must be a non-negative integer.`);
+        }
         const type = coreExports.getInput('type') || 'png';
+        // Validate type
+        if (type !== 'png' && type !== 'svg') {
+            throw new Error(`Invalid type: ${type}. Must be 'png' or 'svg'`);
+        }
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
         coreExports.debug(`Generating QR code for text: ${text}`);
         coreExports.debug(`Output path: ${outputPath}`);
@@ -33581,10 +33595,6 @@ async function run() {
         const dir = require$$1.dirname(outputPath);
         if (dir && dir !== '.') {
             require$$1$1.mkdirSync(dir, { recursive: true });
-        }
-        // Validate type
-        if (type !== 'png' && type !== 'svg') {
-            throw new Error(`Invalid type: ${type}. Must be 'png' or 'svg'`);
         }
         // Generate the QR code
         await QRCode.toFile(outputPath, text, {
