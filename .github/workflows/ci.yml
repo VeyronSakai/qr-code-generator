@@ -83,7 +83,7 @@ jobs:
             Write-Host "❌ PNG QR code file not found"
             exit 1
           }
-          
+
           # Check SVG file
           if (Test-Path "test-qrcode.svg") {
             Write-Host "✅ SVG QR code file generated successfully"
