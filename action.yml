@@ -1,23 +1,32 @@
-name: The name of your action here
-description: Provide a description here
-author: Your name or organization here
+name: qr-code-generator
+description: Generate a QR code image file from text
+author: Yuki Sakai
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: heart
-  color: red
+  icon: grid
+  color: blue
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: Your input description here
+  text:
+    description: The text to encode into the QR code
     required: true
-    default: '1000'
-
-# Define your outputs here.
-outputs:
-  time:
-    description: Your output description here
+  output-path:
+    description: File path where the generated QR code image will be saved
+    required: true
+  width:
+    description: Width of the QR code image in pixels
+    required: false
+    default: '256'
+  margin:
+    description: Quiet zone size
+    required: false
+    default: '1'
+  type:
+    description: Output format type (png or svg)
+    required: false
+    default: 'png'
 
 runs:
   using: node20
