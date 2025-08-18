@@ -2,7 +2,7 @@
   "name": "qr-code-generator",
   "description": "GitHub Action to generate QR codes",
   "version": "0.2.0",
-  "author": "",
+  "author": "Yuki Sakai",
   "type": "module",
   "private": true,
   "homepage": "https://github.com/actions/typescript-action",
