@@ -105,6 +105,8 @@ jobs:
       SOURCE_BRANCH: github-actions/update-files/${{ github.run_number }}
     steps:
       - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
       - name: Update package.json
         run: |
           $packageJson = Get-Content -Path $env:PACKAGE_JSON_PATH -Raw | ConvertFrom-Json
@@ -168,6 +170,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           ref: main
+          persist-credentials: false
       - name: Validate version in package.json
         run: |
           $packageJson = Get-Content -Path $env:PACKAGE_JSON_PATH -Raw | ConvertFrom-Json
@@ -202,6 +205,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           ref: ${{ env.VERSION }}
+          persist-credentials: false
       - name: Update major tag
         if: ${{ steps.get-semver.outputs.major != 'v0' }}
         env:
