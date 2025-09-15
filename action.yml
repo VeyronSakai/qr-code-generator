@@ -1,4 +1,4 @@
-name: QR Code Generator
+name: QR Code Generator Action
 description: Generate a QR code image file from text
 author: Yuki Sakai
 
