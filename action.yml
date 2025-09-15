@@ -1,5 +1,5 @@
 name: QR Code Generator Action
-description: Generate a QR code image file from text
+description: Action to generate QR code image.
 author: Yuki Sakai
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
