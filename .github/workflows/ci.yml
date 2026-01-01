@@ -98,7 +98,7 @@ jobs:
           }
 
       - name: Upload QR Code Artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: qr-codes-${{ github.run_number }}
           path: |
